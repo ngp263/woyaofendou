@@ -7,7 +7,7 @@
 **************************************
 
 [rewrite_local]
-^https:\/\/.*\.lingvist\.com\/.+\/user\/(sync|services) url script-response-body https://github.com/ngp263/woyaofendou/blob/main/Lingvist.js
+^https:\/\/.*\.lingvist\.com\/.+\/user\/(sync|services) url script-response-body https://raw.githubusercontent.com/ngp263/woyaofendou/refs/heads/main/Lingvist.js
 
 [mitm]
 hostname = *.lingvist.com
