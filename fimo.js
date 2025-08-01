@@ -1,3 +1,21 @@
+/*************************************
+
+项目名称：Fimo-复古胶片相机
+更新日期：2025-01-16
+使用声明：⚠️仅供参考，🈲转载与售卖！
+
+**************************************
+
+[rewrite_local]
+^https?:\/\/fimo\.appfimo\.com\/fimo-.*\/(user|apple\/certificate|config|startPopConfig|filmAll) url script-response-body https://raw.githubusercontent.com/ngp263/woyaofendou/refs/heads/main/fimo.js
+
+[mitm]
+hostname = fimo.appfimo.com
+
+*************************************/
+
+
+
 var ddm = JSON.parse($response.body);
 
 // 解锁 /fimo-user/user 接口
