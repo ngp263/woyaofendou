@@ -345,3 +345,131 @@ const list = {
   'com.teadoku.flashnote': { cm: 'timea', hx: 'hxpda', id: "pro_ios_ipad_mac", latest: "ddm1023" },  //AnkiNote
   'com.tapuniverse.texteditor': { cm: 'timea', hx: 'hxpda', id: "com.tapuniverse.texteditor.w", latest: "ddm1023" }  //TextEditor
 };
+const receipt = {
+    'quantity': '1',
+    'purchase_date_ms': '1694250549000',
+    'is_in_intro_offer_period': 'false',
+    'transaction_id': '490001314520000',
+    'is_trial_period': 'false',
+    'original_transaction_id': '490001314520000',
+    'purchase_date': '2023-09-09 09:09:09 Etc/GMT',
+    'product_id': yearlyid,
+    'original_purchase_date_pst': '2023-09-09 02:09:10 America/Los_Angeles',
+    'in_app_ownership_type': 'PURCHASED',
+    'original_purchase_date_ms': '1694250550000',
+    'web_order_line_item_id': '490000123456789',
+    'purchase_date_pst': '2023-09-09 02:09:09 America/Los_Angeles',
+    'original_purchase_date': '2023-09-09 09:09:10 Etc/GMT'
+};
+const expirestime = {
+    'expires_date': '2099-09-09 09:09:09 Etc/GMT',
+    'expires_date_pst': '2099-09-09 06:06:06 America/Los_Angeles',
+    'expires_date_ms': '4092599349000'
+};
+let anchor = false;
+let data;
+for (const i in list) {
+    const regex = new RegExp('^' + i, 'i');
+    if (regex.test(ua) || regex.test(bundle_id)) {
+        const {
+            cm,
+            hx,
+            id,
+            ids,
+            latest,
+            version
+        } = list[i];
+        const receiptdata = Object.assign({}, receipt, {
+            'product_id': id
+        });
+        switch (cm) {
+        case 'timea':
+            data = [Object.assign({}, receiptdata, expirestime)];
+            break;
+        case 'timeb':
+            data = [receiptdata];
+            break;
+        case 'timec':
+            data = [];
+            break;
+        case 'timed':
+            data = [Object.assign({}, receiptdata, expirestime, {
+                'product_id': ids
+            }), Object.assign({}, receiptdata, expirestime, {
+                'product_id': id
+            })];
+            break;
+        }
+        if (hx.includes('hxpda')) {
+            ddm.receipt.in_app = data;
+            ddm.latest_receipt_info = data;
+            ddm.pending_renewal_info = [{
+                'product_id': id,
+                'original_transaction_id': '490001314520000',
+                'auto_renew_product_id': id,
+                'auto_renew_status': '1'
+            }];
+            ddm.latest_receipt = latest;
+        } else if (hx.includes('hxpdb')) {
+            ddm.receipt.in_app = data;
+        } else if (hx.includes('hxpdc')) {
+            const xreceipt = {
+                'expires_date_formatted': '2099-09-09 09:09:09 Etc/GMT',
+                'expires_date': '4092599349000',
+                'expires_date_formatted_pst': '2099-09-09 06:06:06 America/Los_Angeles',
+                'product_id': id
+            };
+            ddm.receipt = Object.assign({}, ddm.receipt, xreceipt);
+            ddm.latest_receipt_info = Object.assign({}, ddm.receipt, xreceipt);
+            ddm.status = 0x0;
+            ddm.auto_renew_status = 0x1;
+            ddm.auto_renew_product_id = id;
+            delete ddm.latest_expired_receipt_info;
+            delete ddm.expiration_intent;
+        }
+        if (version && version.trim() !== '') {
+            ddm.receipt.original_application_version = version;
+        }
+        anchor = true;
+        console.log(`恭喜您，已操作成功🎉🎉🎉\
+叮当猫の分享频道: https://t.me/ddm1023`);
+        break;
+    }
+}
+if (!anchor) {
+    var _0x20d5a3 = '3|2|4|5|0|1' ['split']('|'),
+        _0x17c53f = 0x0;
+    while (true) {
+        switch (_0x20d5a3[_0x17c53f++]) {
+        case '0':
+            ddm.latest_receipt = 'ddm1023';
+            continue;
+        case '1':
+            console.log(`很遗憾未能识别出UA或bundle_id\
+但已使用备用方案🎉🎉🎉\
+叮当猫の分享频道: https://t.me/ddm1023`);
+            continue;
+        case '2':
+            ddm.receipt.in_app = data;
+            continue;
+        case '3':
+            data = [Object.assign({}, receipt, expirestime)];
+            continue;
+        case '4':
+            ddm.latest_receipt_info = data;
+            continue;
+        case '5':
+            ddm.pending_renewal_info = [{
+                'product_id': yearlyid,
+                'original_transaction_id': '490001314520000',
+                'auto_renew_product_id': yearlyid,
+                'auto_renew_status': '1'
+            }];
+            continue;
+        }
+        break;
+    }
+}
+$done({
+    'body': JSON.stringify(ddm)
+});;
