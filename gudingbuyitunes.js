@@ -10,7 +10,7 @@
 [rewrite_local]
 
 # ～ BuyiTunes@ddgksf2013
-^https?:\/\/buy\.itunes\.apple\.com\/verifyReceipt$ url script-response-body https://gist.githubusercontent.com/ddgksf2013/9e0f6c7341beea09a31aa309d9d7f502/raw/buyitunes.js
+^https?:\/\/buy\.itunes\.apple\.com\/verifyReceipt$ url script-response-body https://raw.githubusercontent.com/ngp263/woyaofendou/refs/heads/main/gudingbuyitunes.js
 
 [mitm]
 
