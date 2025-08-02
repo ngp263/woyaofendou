@@ -1,15 +1,13 @@
 /*************************************
 
 项目功能：Filmic Pro相机
-下载地址：https://t.cn/AiE8fHDr
-脚本作者：chxm1023
-电报频道：https://t.me/chxm1023
-使用声明：⚠️仅供参考，🈲转载与售卖！
+
+使用声明：⚠️仅供参考，🈲转载与售卖！学习使用
 
 **************************************
 
 [rewrite_local]
-^https:\/\/filmicpro\.oracle\.bendingspoonsapps\.com\/v\d\/(users\/setup|purchases\/verify) url script-response-body https://raw.githubusercontent.com/chxm1023/Rewrite/main/filmicpro.js
+^https:\/\/filmicpro\.oracle\.bendingspoonsapps\.com\/v\d\/(users\/setup|purchases\/verify) url script-response-body https://raw.githubusercontent.com/ngp263/woyaofendou/refs/heads/main/FilmicPro.js
 
 [mitm]
 hostname = filmicpro.oracle.bendingspoonsapps.com
