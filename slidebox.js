@@ -6,7 +6,7 @@
 **************************************
 
 [rewrite_local]
-^https?:\/\/.*-slidebox-ios-prod\.cloudfunctions\.net\/api_v1 url script-response-body https://raw.githubusercontent.com/chxm1023/Rewrite/main/slidebox.js
+^https?:\/\/.*-slidebox-ios-prod\.cloudfunctions\.net\/api_v1 url script-response-body https://raw.githubusercontent.com/ngp263/woyaofendou/refs/heads/main/slidebox.js
 
 [mitm]
 hostname = *-slidebox-ios-prod.cloudfunctions.net
