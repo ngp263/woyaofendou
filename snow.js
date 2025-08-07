@@ -11,24 +11,36 @@
 hostname = user-snow-api.snow.me
 ******************************************/
 
-(function() {
-    const json = JSON.parse($response.body);
-    const subscriber = json.subscriber;
+// 原始响应体解析
+let rawBody = $response.body;
+let json = JSON.parse(rawBody);
 
-    // 假定获取最后一个订阅条目
-    const entitlementKeys = Object.keys(subscriber.entitlements);
-    const lastKey = entitlementKeys[entitlementKeys.length - 1];
-    const entry = subscriber.entitlements[lastKey];
+// 清空 entitlement 字段（如果存在）
+json.subscriber.entitlements = {};
 
-    // 修改订阅状态
-    entry.is_active = true;
-    entry.product_identifier = "com.example.premium"; // 可根据实际 App 自定义
-    entry.expires_date_ms = Date.now() + 1000 * 60 * 60 * 24 * 365 * 10; // 10 年后
+// 获取最后一个订阅记录对象
+let latestSubscription = json.subscriber.subscriptions[
+    json.subscriber.entitlement_ids[json.subscriber.entitlement_ids.length - 1]
+];
 
-    // 覆盖原数据
-    subscriber.subscriptions[lastKey] = entry;
-    subscriber.entitlements[lastKey] = entry;
-    subscriber.entitlements.is_subscribed = true;
+// 修改订阅记录为有效状态
+latestSubscription.is_sandbox = true;
+latestSubscription.original_purchase_date = "2022-12-29T00:00:00Z";
+latestSubscription.purchase_date = 1672243199000;
+latestSubscription.store = "app_store";
+latestSubscription.expires_date = 32503391999000;
 
-    $done({ body: JSON.stringify(json) });
-})();
+// 覆盖原始订阅数据
+json.subscriber.subscriptions[
+    json.subscriber.entitlement_ids[json.subscriber.entitlement_ids.length - 1]
+] = latestSubscription;
+
+// 设置 entitlement 为解锁
+json.subscriber.entitlements = {
+    [json.subscriber.entitlement_ids[json.subscriber.entitlement_ids.length - 1]]: latestSubscription
+};
+
+json.subscriber.subscribed = true;
+
+// 输出修改后的 JSON 响应体
+$done({ body: JSON.stringify(json) });
