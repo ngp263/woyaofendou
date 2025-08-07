@@ -1,16 +1,13 @@
 /******************************************
  * @Name 𝑆𝑁𝑂𝑊 𝐴𝐼
  * @Description 𝑈𝑛𝑙𝑜𝑐𝑘 𝑉𝐼𝑃 𝐹𝑒𝑎𝑡𝑢𝑟𝑒𝑠
- * @Channel https://t.me/yqc_123
  * @Author 𝐻𝑎𝑢𝑠𝑑𝑜𝑟𝑓𝑓
  * @Update 20240622
- * @Link http://t.cn/A6QSe5Tf
  * @Version 13.2.5
  ******************************************
 [rewrite_local]
 # > 𝑆𝑁𝑂𝑊 𝐴𝐼 𝐶𝑟𝑎𝑐𝑘 𝑉𝐼𝑃
-^https?:\/\/user-snow-api\.snow\.me\/v1\/purchase\/subscription\/subscriber\/status$ url script-response-body https://gist.githubusercontent.com/yqc007/034c05da1ff6866612290bfe3b148618/raw/SnowAIVip.js
-[mitm] 
+^https?:\/\/user-snow-api\.snow\.me\/v1\/purchase\/subscription\/subscriber\/status$ url script-response-body https://raw.githubusercontent.com/ngp263/woyaofendou/refs/heads/main/snow.js
 hostname = user-snow-api.snow.me
 ******************************************/
 
